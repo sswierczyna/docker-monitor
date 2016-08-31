@@ -1,5 +1,6 @@
 influxsrv:
   image: tutum/influxdb:0.8.8
+  restart: "always"  
   ports:
     - "8083:8083"
     - "8086:8086"
@@ -10,6 +11,7 @@ influxsrv:
     - PRE_CREATE_DB=cadvisor
 cadvisor:
   image: google/cadvisor:v0.20.1
+  restart: "always"
   command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
   ports:
     - "9090:8080"
@@ -22,6 +24,7 @@ cadvisor:
     - influxsrv:influxsrv
 grafana:
   image: grafana/grafana:2.0.2
+  restart: "always"
   ports:
     - "3000:3000"
   links:
